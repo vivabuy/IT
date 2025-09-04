@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vivabuy Customer Service</title>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S4WGCJL24J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-S4WGCJL24J');
+</script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 所有CSS样式保持不变 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #128C7E 0%, #075E54 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 固定在顶部的浏览器提示条 - 已更新 */
+        .browser-guide-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        /* 箭头移动到右上角 */
+        .browser-guide-bar .arrow-icon {
+            position: absolute;
+            top: 1px;
+            right: 5px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            animation: bounce 60s infinite;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.8s ease-out;
+            position: relative;
+            margin-top: 15px;
+            z-index: 10;
+        }
+        
+        .header {
+            background: linear-gradient(90deg, #075E54 0%, #128C7E 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .whatsapp-icon {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            color: white;
+            animation: pulse 2s infinite;
+            text-shadow: 0 0 15px rgba(255,255,255,0.5);
+        }
+        
+        .content {
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .assignment-message {
+            background: #f0f8ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 1.3rem;
+            color: #075E54;
+            font-weight: 600;
+            border: 1px solid #d1e7dd;
+            position: relative;
+        }
+        
+        .number-display {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            border: 1px solid #e0e0e0;
+            position: relative;
+        }
+        
+        .number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #075E54;
+            letter-spacing: 1px;
+            padding: 5px 15px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.7);
+        }
+        
+        .copy-btn {
+            background: #128C7E;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(18, 140, 126, 0.3);
+        }
+        
+        .copy-btn:hover {
+            background: #075E54;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(18, 140, 126, 0.4);
+        }
+        
+        .copy-btn.copied {
+            background: #25D366;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.4);
+        }
+        
+        .whatsapp-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            text-decoration: none;
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+            background: linear-gradient(135deg, #128C7E 0%, #25D366 100%);
+        }
+        
+        .refresh-info {
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.95rem;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #25D366;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            gap: 25px;
+        }
+        
+        .feature {
+            flex: 0 0 calc(33.333% - 25px);
+            min-width: 220px;
+            padding: 25px 20px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .feature:hover {
+            transform: translateY(-10px);
+            border-color: #128C7E;
+        }
+        
+        .feature i {
+            font-size: 2.8rem;
+            color: #128C7E;
+            margin-bottom: 20px;
+            background: rgba(18, 140, 126, 0.1);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+        
+        .feature h3 {
+            margin-bottom: 10px;
+            color: #075E54;
+            font-size: 1.3rem;
+        }
+        
+        .feature p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9rem;
+            background: #f5f5f5;
+            margin-top: 30px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        /* 语言选择器样式 - 左上角 */
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+        }
+        
+        .language-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 180px;
+            overflow: hidden;
+            display: none;
+            margin-top: 5px;
+            z-index: 100;
+        }
+        
+        .language-dropdown.active {
+            display: block;
+        }
+        
+        .language-option {
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .language-option:hover {
+            background: #f0f8ff;
+        }
+        
+        .language-flag {
+            width: 24px;
+            height: 18px;
+            border-radius: 2px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* 动画定义 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 700px) {
+            .header h1 { font-size: 1.8rem; }
+            .number { font-size: 1.6rem; }
+            .whatsapp-btn { padding: 15px 30px; font-size: 1.2rem; }
+            .content { padding: 30px 20px; }
+            .assignment-message { font-size: 1.1rem; }
+            .feature { 
+                flex: 0 0 100%; 
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            
+            .browser-guide-bar {
+                font-size: 0.9rem;
+                padding: 10px 15px;
+                flex-direction: column;
+            }
+            
+            .container {
+                margin-top: 80px;
+            }
+            
+            .language-selector {
+                top: 15px;
+                left: 15px;
+            }
+            
+            .language-btn {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+            
+            /* 移动端调整箭头位置 */
+            .browser-guide-bar .arrow-icon {
+                top: 8px;
+                right: 12px;
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .browser-guide-bar {
+                font-size: 0.8rem;
+                padding: 8px 10px;
+            }
+            
+            .container {
+                margin-top: 70px;
+            }
+            
+            /* 更小屏幕调整箭头位置 */
+            .browser-guide-bar .arrow-icon {
+                top: 6px;
+                right: 10px;
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 固定在顶部的浏览器提示条 -->
+    <div class="browser-guide-bar">
+        <span id="guideText">For better experience, open in browser</span>
+        <!-- 箭头移动到最右上角 -->
+        <span class="arrow-icon">↗</span>
+    </div>
+    
+    <div class="container">
+        <!-- 语言选择器 - 左上角 -->
+        <div class="language-selector" id="languageSelector">
+            <div class="language-btn" id="languageBtn">
+                <i class="fas fa-globe"></i>
+                <span id="currentLangText">English</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="language-dropdown" id="languageDropdown">
+                <div class="language-option" data-lang="en">
+                    <div class="language-flag" style="background-image: url('https://flagcdn.com/w40/gb.png')"></div>
+                    <span>English</span>
+                </div>
+                <div class="language-option" data-lang="es">
+                    <div class="language-flag" style="background-image: url('https://flagcdn.com/w40/es.png')"></div>
+                    <span>Español</span>
+                </div>
+                <div class="language-option" data-lang="fr">
+                    <div class="language-flag" style="background-image: url('https://flagcdn.com/w40/fr.png')"></div>
+                    <span>Français</span>
+                </div>
+                <div class="language-option" data-lang="de">
+                    <div class="language-flag" style="background-image: url('https://flagcdn.com/w40/de.png')"></div>
+                    <span>Deutsch</span>
+                </div>
+                <div class="language-option" data-lang="it">
+                    <div class="language-flag" style="background-image: url('https://flagcdn.com/w40/it.png')"></div>
+                    <span>Italiano</span>
+                </div>
+                <div class="language-option" data-lang="hrv">
+                    <div class="language-flag" style="background-image: url('https://flagcdn.com/w40/hr.png')"></div>
+                    <span>Hrvatska</span>
+                </div>
+                <div class="language-option" data-lang="rom">
+                    <div class="language-flag" style="background-image: url('https://flagcdn.com/w40/ro.webp')"></div>
+                    <span>România</span>
+                </div>
+                <div class="language-option" data-lang="nl">
+                    <div class="language-flag" style="background-image: url('https://flagcdn.com/w40/nl.png')"></div>
+                    <span>Nederlands</span>
+                </div>
+                <div class="language-option" data-lang="ar">
+                    <div class="language-flag" style="background-image: url('https://flagcdn.com/w40/sa.png')"></div>
+                    <span>العربية</span>
+                </div>
+                <div class="language-option" data-lang="zh">
+                    <div class="language-flag" style="background-image: url('https://flagcdn.com/w40/cn.png')"></div>
+                    <span>中文</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="header">
+            <div class="header-content">
+                <i class="fab fa-whatsapp whatsapp-icon"></i>
+                <h1 id="mainTitle">Vivabuy Exclusive Customer Service</h1>
+                <p id="subTitle">We've assigned you a dedicated customer service manager for personalized assistance via WhatsApp</p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="assignment-message" id="assignmentMessage">
+                A dedicated service manager has been assigned to you, please add the following WhatsApp number
+            </div>
+            
+            <div class="number-display">
+                <span class="number" id="whatsappNumber">+852 51048557</span>
+                <button class="copy-btn" id="copyBtn">
+                    <i class="fas fa-copy"></i> <span id="copyText">Copy Number</span>
+                </button>
+            </div>
+            
+            <a href="https://wa.me/message/G5O4MJYIVEVAD1" class="whatsapp-btn" id="whatsappLink" target="_blank">
+                <i class="fab fa-whatsapp"></i> <span id="contactText">Contact Now</span>
+            </a>
+            
+            <p class="refresh-info" id="refreshInfo">
+                Note: If WhatsApp doesn't open automatically, use an external browser or copy the number to add us
+            </p>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-headset"></i>
+                    <h3 id="serviceTitle">Exclusive Service</h3>
+                    <p id="serviceDesc">One-on-one dedicated manager, continuous problem tracking, personalized solutions</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-clock"></i>
+                    <h3 id="responseTitle">Quick Response</h3>
+                    <p id="responseDesc">24/7 service, immediate response, resolve your inquiries anytime</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-lock"></i>
+                    <h3 id="securityTitle">Secure & Reliable</h3>
+                    <p id="securityDesc">Officially certified team, end-to-end encrypted communication, ensuring your security and privacy</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p id="footerText">© 2025 Vivabuy Customer Service | www.ccbfc.xyz</p>
+        </div>
+    </div>
+
+    <script>
+        
+        // WhatsApp号码和链接数据
+        const whatsappData = [
+            { 
+                number: "+86 15711544361", 
+                link: "https://wa.me/8615711544361",
+                agentId: "agent-01"
+            },
+            { 
+                number: "+86 18450150145", 
+                link: "https://wa.me/8618450150145",
+                agentId: "agent-02"
+            },
+            { 
+                number: "+86 13646030115", 
+                link: "https://wa.me/8613646030115",
+                agentId: "agent-03"
+            },
+            { 
+                number: "+86 13459228624", 
+                link: "https://wa.me/8613459228624",
+                agentId: "agent-04"
+            },
+            { 
+                number: "+86 13400739763", 
+                link: "https://wa.me/8613400739763",
+                agentId: "agent-05"
+            },
+            { 
+                number: "+86 13646036917", 
+                link: "https://wa.me/8613646036917",
+                agentId: "agent-06"
+            },
+            { 
+                number: "+86 15260224147", 
+                link: "https://wa.me/8615260224147",
+                agentId: "agent-07"
+            },
+            { 
+                number: "+86 13459228624", 
+                link: "https://wa.me/8613459228624",
+                agentId: "agent-08"
+            },
+            { 
+                number: "+86 13646030115", 
+                link: "https://wa.me/8613646030115",
+                agentId: "agent-09"
+            },
+            { 
+                number: "+86 14759209754", 
+                link: "https://wa.me/8614759209754",
+                agentId: "agent-10"
+            }
+        ];
+        
+        // 语言翻译数据
+        const translations = {
+            en: {
+                mainTitle: "Vivabuy Exclusive Customer Service",
+                subTitle: "We've assigned you a dedicated customer service manager for personalized assistance via WhatsApp",
+                assignmentMessage: "A dedicated service manager has been assigned to you, please add the following WhatsApp number",
+                copyText: "Copy Number",
+                contactText: "Contact Now",
+                refreshInfo: "Note: If WhatsApp doesn't open automatically, use an external browser or copy the number to add us",
+                serviceTitle: "Exclusive Service",
+                serviceDesc: "One-on-one dedicated manager, continuous problem tracking, personalized solutions",
+                responseTitle: "Quick Response",
+                responseDesc: "24/7 service, immediate response, resolve your inquiries anytime",
+                securityTitle: "Secure & Reliable",
+                securityDesc: "Officially certified team, end-to-end encrypted communication, ensuring your security and privacy",
+                footerText: "© 2025 Vivabuy Customer Service | ccbfc.xyz",
+                currentLang: "English",
+                guideText: "For better experience, open in browser"
+            },
+            es: {
+                mainTitle: "Servicio de Atención al Cliente Exclusivo Vivabuy",
+                subTitle: "Le hemos asignado un asistente personal exclusivo para brindarle un servicio personalizado a través de WhatsApp",
+                assignmentMessage: "Se le ha asignado un asistente personal exclusivo, agregue el siguiente número de WhatsApp",
+                copyText: "Copiar número",
+                contactText: "Contactar ahora",
+                refreshInfo: "Nota: si WhatsApp no se abre automáticamente, utilice un navegador externo o copie el número para agregarnos",
+                serviceTitle: "Servicio Exclusivo",
+                serviceDesc: "Asistente personal exclusivo, seguimiento continuo de sus problemas, soluciones personalizadas",
+                responseTitle: "Respuesta Rápida",
+                responseDesc: "Servicio 24 horas, respuesta inmediata, resolución de dudas en cualquier momento",
+                securityTitle: "Seguro y Confiable",
+                securityDesc: "Equipo oficial certificado, comunicación encriptada, garantizando su seguridad y privacidad",
+                footerText: "© 2025 Servicio de Atención al Cliente Vivabuy | ccbfc.xyz",
+                currentLang: "Español",
+                guideText: "Para mejor experiencia, abra en el navegador"
+            },
+            fr: {
+                mainTitle: "Service Client Exclusif Vivabuy",
+                subTitle: "Nous vous avons attribué un gestionnaire client dédié pour une assistance personnalisée via WhatsApp",
+                assignmentMessage: "Un gestionnaire de service dédié vous a été attribué, veuillez ajouter le numéro WhatsApp suivant",
+                copyText: "Copier le numéro",
+                contactText: "Contacter maintenant",
+                refreshInfo: "Remarque: si WhatsApp ne s'ouvre pas automatiquement, utilisez un navigateur externe ou copiez le numéro pour nous ajouter",
+                serviceTitle: "Service Exclusif",
+                serviceDesc: "Gestionnaire dédié, suivi continu des problèmes, solutions personnalisées",
+                responseTitle: "Réponse Rapide",
+                responseDesc: "Service 24h/24, réponse immédiate, résolution de vos demandes à tout moment",
+                securityTitle: "Sécurisé et Fiable",
+                securityDesc: "Équipe officiellement certifiée, communication cryptée, garantissant votre sécurité et confidentialité",
+                footerText: "© 2025 Service Client Vivabuy | ccbfc.xyz",
+                currentLang: "Français",
+                guideText: "Pour une meilleure expérience, ouvrir dans le navigateur"
+            },
+            de: {
+                mainTitle: "Vivabuy Exklusiver Kundenservice",
+                subTitle: "Wir haben Ihnen einen persönlichen Kundenbetreuer für individuelle Unterstützung über WhatsApp zugewiesen",
+                assignmentMessage: "Ihnen wurde ein persönlicher Service-Manager zugewiesen. Bitte fügen Sie die folgende WhatsApp-Nummer hinzu",
+                copyText: "Nummer kopieren",
+                contactText: "Jetzt kontaktieren",
+                refreshInfo: "Hinweis: Wenn WhatsApp nicht automatisch geöffnet wird, verwenden Sie einen externen Browser oder kopieren Sie die Nummer, um uns hinzuzufügen",
+                serviceTitle: "Exklusiver Service",
+                serviceDesc: "Persönlicher Betreuer, kontinuierliche Problemlösung, maßgeschneiderte Lösungen",
+                responseTitle: "Schnelle Antwort",
+                responseDesc: "24/7 Service, sofortige Antwort, Beantwortung Ihrer Anfragen jederzeit",
+                securityTitle: "Sicher & Zuverlässig",
+                securityDesc: "Offiziell zertifiziertes Team, Ende-zu-Ende-Verschlüsselung, Sicherheit und Datenschutz garantiert",
+                footerText: "© 2025 Vivabuy Kundenservice | ccbfc.xyz",
+                currentLang: "Deutsch",
+                guideText: "Für ein besseres Erlebnis im Browser öffnen"
+            },
+            it: {
+                mainTitle: "Servizio Clienti Esclusivo Vivabuy",
+                subTitle: "Ti abbiamo assegnato un manager dedicato per un'assistenza personalizzata via WhatsApp",
+                assignmentMessage: "Ti è stato assegnato un manager di servizio dedicato, aggiungi il seguente numero WhatsApp",
+                copyText: "Copia numero",
+                contactText: "Contatta ora",
+                refreshInfo: "Nota: se WhatsApp non si apre automaticamente, usa un browser esterno o copia il numero per aggiungerci",
+                serviceTitle: "Servizio Esclusivo",
+                serviceDesc: "Manager dedicato, monitoraggio continuo dei problemi, soluzioni personalizzate",
+                responseTitle: "Risposta Rapida",
+                responseDesc: "Servizio 24/7, risposta immediata, risoluzione delle tue richieste in qualsiasi momento",
+                securityTitle: "Sicuro e Affidabile",
+                securityDesc: "Team ufficialmente certificato, comunicazione crittografata, garantisce la tua sicurezza e privacy",
+                footerText: "© 2025 Servizio Clienti Vivabuy | ccbfc.xyz",
+                currentLang: "Italiano",
+                guideText: "Per una migliore esperienza, apri nel browser"
+            },
+            hrv: {
+                mainTitle: "Vivabuy ekskluzivna usluga osobnog asistenta za korisnike",
+                subTitle: "Dodijelili smo vam osobnog asistenta koji vam je dostupan putem WhatsAppa za uslugu jedan na jedan u bilo kojem trenutku.",
+                assignmentMessage: "Vaš osobni asistent je već dodijeljen – dodajte sljedeći WhatsApp broj:",
+                copyText: "Kopiraj broj",
+                contactText: "Kontaktirajte nas odmah",
+                refreshInfo: "Topla preporuka: Ako se WhatsApp ne otvori automatski zbog ograničenja preglednika platforme, možete koristiti vanjski preglednik ili ručno kopirati broj i dodati nas.",
+                serviceTitle: "Ekskluzivna usluga",
+                serviceDesc: "Osobni asistent jedan na jedan, koji prati vaš slučaj i nudi personalizirana rješenja",
+                responseTitle: "Brz odgovor",
+                responseDesc: "24/7 online usluga, trenutna reakcija i rješavanje vaših upita",
+                securityTitle: "Sigurno i pouzdano",
+                securityDesc: "Službeni certificirani tim, end-to-end enkripcija komunikacije, zaštita vaših podataka i privatnosti",
+                footerText: "© 2025 Vivabuy ekskluzivna usluga osobnog asistenta | ccbfc.xyz",
+                currentLang: "Hrvatska",
+                guideText: "Za bolje iskustvo otvorite u pregledniku"
+            },
+            rom: {
+                mainTitle: "Serviciul exclusiv Vivabuy – asistent personal pentru clienți",
+                subTitle: "V-am alocat un asistent personal care vă stă la dispoziție prin WhatsApp pentru servicii individuale, în orice moment.",
+                assignmentMessage: "Asistentul personal v-a fost deja alocat – adăugați următorul număr de WhatsApp:",
+                copyText: "Copiază numărul",
+                contactText: "Contactează-ne acum",
+                refreshInfo: "Sfat util: Dacă WhatsApp nu se deschide automat din cauza restricțiilor browserului platformei, puteți folosi un browser extern sau copia numărul și să ne adăugați manual.",
+                serviceTitle: "Serviciu exclusiv",
+                serviceDesc: "Asistent personal dedicat, care urmărește cazul dvs. și oferă soluții personalizate",
+                responseTitle: "Răspuns rapid",
+                responseDesc: "Serviciu online 24/7, reacție imediată și rezolvarea întrebărilor dvs. în orice moment",
+                securityTitle: "Sigur și de încredere",
+                securityDesc: "Echipă oficială certificată, comunicație criptată end-to-end, protecția datelor și a confidențialității dvs.",
+                footerText: "© 2025 Serviciul exclusiv Vivabuy – asistent personal pentru clienți | ccbfc.xyz",
+                currentLang: "România",
+                guideText: "Pentru o experiență mai bună, deschideți în browser"
+            },
+            nl: {
+                mainTitle: "Vivabuy Exclusieve Klantenservice",
+                subTitle: "We hebben u een persoonlijke klantmanager toegewezen voor gepersonaliseerde ondersteuning via WhatsApp",
+                assignmentMessage: "Er is een persoonlijke servicemanager aan u toegewezen, voeg het volgende WhatsApp-nummer toe",
+                copyText: "Nummer kopiëren",
+                contactText: "Nu contact opnemen",
+                refreshInfo: "Opmerking: als WhatsApp niet automatisch opent, gebruik een externe browser of kopieer het nummer om ons toe te voegen",
+                serviceTitle: "Exclusieve Service",
+                serviceDesc: "Persoonlijke manager, continue probleemopvolging, op maat gemaakte oplossingen",
+                responseTitle: "Snelle Reactie",
+                responseDesc: "24/7 service, directe reactie, uw vragen op elk moment oplossen",
+                securityTitle: "Veilig & Betrouwbaar",
+                securityDesc: "Officieel gecertificeerd team, end-to-end versleutelde communicatie, garandeert uw veiligheid en privacy",
+                footerText: "© 2025 Vivabuy Klantenservice | ccbfc.xyz",
+                currentLang: "Nederlands",
+                guideText: "Voor een betere ervaring openen in de browser"
+            },
+            ar: {
+                mainTitle: "خدمة العملاء الحصرية من Vivabuy",
+                subTitle: "لقد قمنا بتعيين مدير خدمة عملاء مخصص لك لتقديم المساعدة الشخصية عبر واتساب",
+                assignmentMessage: "تم تعيين مدير خدمة مخصص لك، يرجى إضافة رقم واتساب التالي",
+                copyText: "نسخ الرقم",
+                contactText: "اتصل الآن",
+                refreshInfo: "ملاحظة: إذا لم يفتح واتساب تلقائيًا، استخدم متصفح خارجي أو انسخ الرقم لإضافتنا",
+                serviceTitle: "خدمة حصرية",
+                serviceDesc: "مدير مخصص، متابعة مستمرة للمشاكل، حلول مخصصة",
+                responseTitle: "استجابة سريعة",
+                responseDesc: "خدمة على مدار الساعة، استجابة فورية، حل استفساراتك في أي وقت",
+                securityTitle: "آمن وموثوق",
+                securityDesc: "فريق معتمد رسميًا، اتصالات مشفرة من طرف إلى طرف، ضمان أمنك وخصوصيتك",
+                footerText: "© 2025 خدمة عملاء Vivabuy | ccbfc.xyz",
+                currentLang: "العربية",
+                guideText: "لتحسين التجربة، افتح في المتصفح"
+            },
+            zh: {
+                mainTitle: "Vivabuy专属客服管家服务",
+                subTitle: "我们为您分配了专属客服管家，通过WhatsApp随时为您提供一对一服务",
+                assignmentMessage: "已为您分配专属客服管家，请添加以下WhatsApp号码",
+                copyText: "复制号码",
+                contactText: "立即联系客服",
+                refreshInfo: "温馨提示：由于平台浏览器管制如果不能自动跳转WhatsApp可以使用外部浏览器打开或者复制号码添加我们",
+                serviceTitle: "专属服务",
+                serviceDesc: "一对一专属客服管家，全程跟进您的问题，提供个性化解决方案",
+                responseTitle: "快速响应",
+                responseDesc: "24小时在线服务，急速响应，随时解决您的疑问",
+                securityTitle: "安全可靠",
+                securityDesc: "官方认证客服团队，端到端加密通信，保障您的信息安全和隐私",
+                footerText: "© 2025 Vivabuy专属客服管家服务 | ccbfc.xyz",
+                currentLang: "中文",
+                guideText: "可使用浏览器打开体验更佳"
+            }
+        };
+        
+        // 获取分配的客服（基于本地存储模拟IP绑定）
+        function getAssignedAgent() {
+            const storageKey = 'sthree_agent_assignment';
+            const ttl = 24 * 60 * 60 * 1000; // 24小时，单位为毫秒
+            const now = Date.now();
+    
+            let agentData = localStorage.getItem(storageKey);
+            if (agentData) {
+                const parsed = JSON.parse(agentData);
+                if (now - parsed.timestamp < ttl) {
+                return parsed.agent; // ⏱ 在24小时内，继续使用旧分配
+                }
+            }
+    
+            // ⚠ 超过24小时或无分配信息，重新分配客服
+            const randomIndex = Math.floor(Math.random() * whatsappData.length);
+            const assignedAgent = whatsappData[randomIndex];
+    
+            localStorage.setItem(storageKey, JSON.stringify({
+                agent: assignedAgent,
+                timestamp: now
+            }));
+
+            return assignedAgent;
+        }
+        
+        // 更新页面显示
+        function updateDisplay() {
+            const agent = getAssignedAgent();
+            document.getElementById('whatsappNumber').textContent = agent.number;
+            document.getElementById('whatsappLink').href = agent.link;
+
+            // 🔥 绑定 GA4 点击统计
+            const linkEl = document.getElementById('whatsappLink');
+            linkEl.addEventListener('click', function() {
+            gtag('event', 'whatsapp_click', {
+                agent_id: agent.agentId,
+                whatsapp_number: agent.number,
+                whatsapp_link: agent.link
+                });
+            });
+        }
+        
+        // 复制号码功能
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const number = document.getElementById('whatsappNumber').textContent;
+            navigator.clipboard.writeText(number).then(() => {
+                const btn = document.getElementById('copyBtn');
+                const copyText = document.getElementById('copyText');
+                btn.innerHTML = '<i class="fas fa-check"></i> ' + (currentLang === 'zh' ? '已复制' : 'Copied');
+                btn.classList.add('copied');
+                
+                setTimeout(() => {
+                    btn.innerHTML = '<i class="fas fa-copy"></i> ' + copyText.textContent;
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
+        });
+        
+        // 语言切换功能
+        let currentLang = 'en'; // 默认设置为英语
+        
+        function changeLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('selectedLanguage', lang);
+            
+            // 更新语言按钮文本
+            document.getElementById('currentLangText').textContent = translations[lang].currentLang;
+            
+            // 更新页面内容
+            document.getElementById('mainTitle').textContent = translations[lang].mainTitle;
+            document.getElementById('subTitle').textContent = translations[lang].subTitle;
+            document.getElementById('assignmentMessage').textContent = translations[lang].assignmentMessage;
+            document.getElementById('copyText').textContent = translations[lang].copyText;
+            document.getElementById('contactText').textContent = translations[lang].contactText;
+            document.getElementById('refreshInfo').textContent = translations[lang].refreshInfo;
+            document.getElementById('serviceTitle').textContent = translations[lang].serviceTitle;
+            document.getElementById('serviceDesc').textContent = translations[lang].serviceDesc;
+            document.getElementById('responseTitle').textContent = translations[lang].responseTitle;
+            document.getElementById('responseDesc').textContent = translations[lang].responseDesc;
+            document.getElementById('securityTitle').textContent = translations[lang].securityTitle;
+            document.getElementById('securityDesc').textContent = translations[lang].securityDesc;
+            document.getElementById('footerText').textContent = translations[lang].footerText;
+            document.getElementById('guideText').textContent = translations[lang].guideText;
+            
+            // 关闭下拉菜单
+            document.getElementById('languageDropdown').classList.remove('active');
+        }
+        
+        // 语言选择器交互
+        const languageBtn = document.getElementById('languageBtn');
+        const languageDropdown = document.getElementById('languageDropdown');
+        
+        languageBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            languageDropdown.classList.toggle('active');
+        });
+        
+        // 选择语言
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                changeLanguage(lang);
+            });
+        });
+        
+        // 点击页面其他区域关闭下拉菜单
+        document.addEventListener('click', function(e) {
+            const languageSelector = document.getElementById('languageSelector');
+            if (!languageSelector.contains(e.target)) {
+                languageDropdown.classList.remove('active');
+            }
+        });
+        
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDisplay();
+            
+            // 设置默认语言为英语
+            const savedLang = localStorage.getItem('selectedLanguage');
+            if (savedLang) {
+                currentLang = savedLang;
+            } else {
+                currentLang = 'en'; // 默认英语
+                localStorage.setItem('selectedLanguage', 'en');
+            }
+            changeLanguage(currentLang);
+        });
+    </script>
+</body>
+
+</html>                                                                                                                                                                                                                                                                                                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
